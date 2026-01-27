@@ -29,7 +29,14 @@ export const authApi = createApi({
         method: api.auth.login.method,
         body: credentials,
       }),
-      invalidatesTags: ["User"],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            authApi.util.updateQueryData("getMe", undefined, () => data.user)
+          );
+        } catch {}
+      },
     }),
   }),
 });
