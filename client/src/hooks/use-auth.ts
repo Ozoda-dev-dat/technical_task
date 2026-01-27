@@ -7,18 +7,18 @@ export function useAuth() {
   const [_, setLocation] = useLocation();
   const { toast } = useToast();
 
-  const { data: user, isLoading, error } = useGetMeQuery();
+  const { data: user, isLoading, error, refetch } = useGetMeQuery();
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
 
   const login = async (credentials: LoginRequest) => {
     try {
       const data = await loginMutation(credentials).unwrap();
       localStorage.setItem('auth_token', data.token);
+      await refetch();
       toast({
         title: "Xush kelibsiz",
         description: `${data.user.firstName} ${data.user.lastName} sifatida tizimga kirdingiz`,
       });
-      // Redirect based on role
       if (data.user.roles.includes("ADMIN")) setLocation("/users");
       else if (data.user.roles.includes("PAYMENT")) setLocation("/payments");
       else if (data.user.roles.includes("REPORTS")) setLocation("/reports");
