@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'DM Sans', sans-serif;
+
+  /* Corporate Financial Palette - Deep Blue & Crisp White */
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  
+  --primary: 220 90% 25%; /* Deep Royal Blue */
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 210 20% 90%; /* Light Blue-Grey */
+  --secondary-foreground: 222 47% 11%;
+  
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  
+  --accent: 200 80% 40%; /* Brighter Blue for highlights */
+  --accent-foreground: 210 40% 98%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214 32% 85%;
+  --input: 214 32% 85%;
+  --ring: 220 90% 25%;
+  
+  --radius: 0.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply font-bold tracking-tight text-primary;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40 transition-colors;
+}
+
+/* Glassmorphism utilities */
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-white/20;
+}
+
+/* Animation Utilities */
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
